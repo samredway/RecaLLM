@@ -13,6 +13,7 @@ public class GPT4oChatService implements ChatService {
     this.client = client;
   }
 
+  @Override
   public String chat(String message) {
     return client.getResponseText(message, model);
   }
