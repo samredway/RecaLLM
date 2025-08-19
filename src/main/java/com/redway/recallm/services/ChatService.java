@@ -1,4 +1,4 @@
-package com.redway.recallm.chat.service;
+package com.redway.recallm.services;
 
 /** ChatService */
 public interface ChatService {

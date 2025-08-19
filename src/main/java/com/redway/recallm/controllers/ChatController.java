@@ -1,6 +1,6 @@
-package com.redway.recallm.chat.web;
+package com.redway.recallm.controllers;
 
-import com.redway.recallm.chat.service.ChatService;
+import com.redway.recallm.services.ChatService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

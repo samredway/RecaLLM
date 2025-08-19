@@ -1,15 +1,16 @@
-package com.redway.recallm.chat.service;
+package com.redway.recallm.services;
 
 import com.openai.models.ChatModel;
+import com.redway.recallm.clients.GptClient;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GPT4oChatService implements ChatService {
+public class Gpt4oChatService implements ChatService {
 
   private final ChatModel model = ChatModel.GPT_4O;
-  private final GPTClient client;
+  private final GptClient client;
 
-  public GPT4oChatService(GPTClient client) {
+  public Gpt4oChatService(GptClient client) {
     this.client = client;
   }
 

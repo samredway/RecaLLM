@@ -1,4 +1,4 @@
-package com.redway.recallm.chat.service;
+package com.redway.recallm.clients;
 
 import com.openai.client.OpenAIClient;
 import com.openai.client.okhttp.OpenAIOkHttpClient;
@@ -8,17 +8,20 @@ import com.openai.models.responses.ResponseCreateParams;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GPTClient {
+public class GptClient {
+  // Maybe should use client that can handle concurrency. Although chat is fairly
+  // synchronous we may need to do other LLM calls for the system.
   public final OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
   private String textFromResponse(Response response) {
     return response.output().stream()
-      .findFirst()
-      .flatMap(item -> item.message()) // returns Optional<ResponseMessage>
-      .flatMap(msg -> msg.content().stream().findFirst()) // stream → findFirst → Optional<Content>
-      .flatMap(content -> content.outputText()) // Optional<OutputText>
-      .map(outputText -> outputText.text()) // Optional<String>
-      .orElse("");
+        .findFirst()
+        .flatMap(item -> item.message()) // returns Optional<ResponseMessage>
+        .flatMap(
+            msg -> msg.content().stream().findFirst()) // stream → findFirst → Optional<Content>
+        .flatMap(content -> content.outputText()) // Optional<OutputText>
+        .map(outputText -> outputText.text()) // Optional<String>
+        .orElse("");
   }
 
   public String getResponseText(String message, ChatModel model) {
