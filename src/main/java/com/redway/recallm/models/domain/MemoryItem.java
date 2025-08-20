@@ -1,10 +1,10 @@
 package com.redway.recallm.models.domain;
 
-import java.time.OffsetTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public record MemoryItem(
-    String userId, String sessionId, Role role, String content, OffsetTime createdAt) {
+    String userId, String sessionId, Role role, String content, OffsetDateTime createdAt) {
 
   public enum Role {
     USER,
@@ -12,6 +12,6 @@ public record MemoryItem(
   }
 
   public MemoryItem(String userId, String sessionId, Role role, String content) {
-    this(userId, sessionId, role, content, OffsetTime.now(ZoneOffset.UTC));
+    this(userId, sessionId, role, content, OffsetDateTime.now(ZoneOffset.UTC));
   }
 }

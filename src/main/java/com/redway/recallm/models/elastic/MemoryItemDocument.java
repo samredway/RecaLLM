@@ -39,8 +39,4 @@ public class MemoryItemDocument {
     this.content = content;
     this.createdAt = createdAt;
   }
-
-  public String getGetContent() {
-    return this.getContent();
-  }
 }
