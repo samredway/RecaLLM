@@ -1,6 +1,6 @@
 package com.redway.recallm.services;
 
-import com.redway.recallm.models.MemoryItem;
+import com.redway.recallm.domain.MemoryItem;
 import java.util.ArrayList;
 import java.util.List;
 
