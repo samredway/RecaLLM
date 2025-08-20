@@ -1,6 +1,6 @@
 package com.redway.recallm.services;
 
-import com.redway.recallm.domain.MemoryItem;
+import com.redway.recallm.models.domain.MemoryItem;
 import java.util.List;
 
 public interface MemoryService {

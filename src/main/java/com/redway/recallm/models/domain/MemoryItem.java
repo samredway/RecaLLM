@@ -1,4 +1,4 @@
-package com.redway.recallm.domain;
+package com.redway.recallm.models.domain;
 
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
