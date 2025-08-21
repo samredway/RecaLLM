@@ -11,9 +11,11 @@ class ElasticMemoryService implements MemoryService {
 
   private final ElasticsearchClient client;
 
+  /** Save a memory to elastic */
   @Override
   public void remember(MemoryItem item) {}
 
+  /** Retrieve all memories from a given session */
   @Override
   public List<MemoryItem> sessionHistory(String sessionId) {
     return new ArrayList<MemoryItem>();
