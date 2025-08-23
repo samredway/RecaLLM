@@ -28,7 +28,6 @@ class ElasticMemoryServiceTests {
     var item2 = new MemoryItem(userId, sessionId, Role.USER, "Some other content");
     memoryService.memorise(item1);
     memoryService.memorise(item2);
-    memoryService.forceRefresh();
     List<MemoryItem> history = memoryService.recallSession(sessionId);
     assertEquals(2, history.size());
   }
