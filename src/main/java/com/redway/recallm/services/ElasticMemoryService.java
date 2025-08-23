@@ -5,6 +5,8 @@ import com.redway.recallm.models.domain.MemoryItem;
 import com.redway.recallm.repositories.MemoryItemDocumentRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,9 +16,6 @@ class ElasticMemoryService implements MemoryService {
   private final MemoryItemDocumentRepository repo;
   private final MemoryItemMapper mapper;
 
-  // Will be used for long term memory searches which will require more complex queries
-  // private final ElasticsearchClient client;
-
   @Override
   public void memorise(MemoryItem item) {
     repo.save(mapper.toDocument(item));
@@ -24,8 +23,11 @@ class ElasticMemoryService implements MemoryService {
 
   @Override
   public List<MemoryItem> recallSession(String sessionId) {
-    return repo.findBySessionIdOrderByCreatedAtAsc(sessionId).stream()
-        .map(mapper::toDomain)
-        .toList();
+    var es_window_limit = 10_000;
+    var page =
+        repo.findBySessionId(
+            sessionId, PageRequest.of(0, es_window_limit, Sort.by("createdAt").ascending()));
+
+    return page.getContent().stream().map(mapper::toDomain).toList();
   }
 }
