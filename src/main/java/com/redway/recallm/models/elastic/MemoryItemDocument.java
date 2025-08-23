@@ -10,8 +10,9 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Data
 @NoArgsConstructor
-@Document(indexName = "recallm-memories")
+@Document(indexName = MemoryItemDocument.INDEX_NAME)
 public class MemoryItemDocument {
+  public static final String INDEX_NAME = "recallm-memories";
 
   @Id private String id;
 

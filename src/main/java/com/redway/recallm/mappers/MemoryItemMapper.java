@@ -7,11 +7,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface MemoryItemMapper {
-  // Domain object to elastic document model
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "role", expression = "java(item.role().name())")
   MemoryItemDocument toDocument(MemoryItem item);
 
-  // Elastic document model to domain model
   @Mapping(target = "role", expression = "java(MemoryItem.Role.valueOf(document.getRole()))")
   MemoryItem toDomain(MemoryItemDocument document);
 }

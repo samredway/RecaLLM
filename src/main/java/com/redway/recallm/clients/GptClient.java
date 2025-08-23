@@ -5,13 +5,21 @@ import com.openai.client.okhttp.OpenAIOkHttpClient;
 import com.openai.models.ChatModel;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GptClient {
-  // Maybe should use client that can handle concurrency. Although chat is fairly
-  // synchronous we may need to do other LLM calls for the system.
-  public final OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+  public final OpenAIClient client;
+
+  public GptClient() {
+    Dotenv dotenv = Dotenv.load();
+    String apiKey = dotenv.get("OPENAI_API_KEY");
+    if (apiKey == null || apiKey.isEmpty()) {
+      throw new RuntimeException("OPENAI_API_KEY is not set in .env file");
+    }
+    client = OpenAIOkHttpClient.builder().apiKey(apiKey).build();
+  }
 
   private String textFromResponse(Response response) {
     return response.output().stream()

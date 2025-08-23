@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface MemoryService {
   /** Write memory to storage */
-  void remember(MemoryItem item);
+  void memorise(MemoryItem item);
 
   /** Retreive all memories related to this session */
-  List<MemoryItem> sessionHistory(String sessionId);
+  List<MemoryItem> recallSession(String sessionId);
 }
