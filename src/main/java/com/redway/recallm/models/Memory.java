@@ -1,6 +1,7 @@
-package com.redway.recallm.models.elastic;
+package com.redway.recallm.models;
 
 import java.time.OffsetDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -10,8 +11,9 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Data
 @NoArgsConstructor
-@Document(indexName = MemoryItemDocument.INDEX_NAME)
-public class MemoryItemDocument {
+@AllArgsConstructor
+@Document(indexName = Memory.INDEX_NAME)
+public class Memory {
   public static final String INDEX_NAME = "recallm-memories";
 
   @Id private String id;
@@ -30,14 +32,4 @@ public class MemoryItemDocument {
 
   @Field(type = FieldType.Date)
   private OffsetDateTime createdAt;
-
-  public MemoryItemDocument(
-      String userId, String sessionId, String role, String content, OffsetDateTime createdAt) {
-    this.id = null; // Elastic will generate id
-    this.userId = userId;
-    this.sessionId = sessionId;
-    this.role = role;
-    this.content = content;
-    this.createdAt = createdAt;
-  }
 }

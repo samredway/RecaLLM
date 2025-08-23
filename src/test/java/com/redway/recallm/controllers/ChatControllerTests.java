@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.redway.recallm.services.ChatService;
+import com.redway.recallm.services.MemoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,6 +19,7 @@ class ChatControllerTest {
   @Autowired private MockMvc mockMvc;
 
   @MockBean private ChatService chatService;
+  @MockBean private MemoryService memoryService;
 
   @Test
   void sendMessage_retunsString() throws Exception {

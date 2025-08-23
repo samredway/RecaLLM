@@ -1,14 +1,13 @@
 package com.redway.recallm.repositories;
 
-import com.redway.recallm.models.elastic.MemoryItemDocument;
+import com.redway.recallm.models.Memory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemoryItemDocumentRepository
-    extends ElasticsearchRepository<MemoryItemDocument, String> {
+public interface MemoryItemDocumentRepository extends ElasticsearchRepository<Memory, String> {
 
-  Page<MemoryItemDocument> findBySessionId(String sessionId, Pageable pageable);
+  Page<Memory> findBySessionId(String sessionId, Pageable pageable);
 }

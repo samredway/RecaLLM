@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 
+/**
+ * Sets up the low level ElasticsearchClient
+ *
+ * <p>NOTE not currently being used but will be later for long term memory query
+ */
 @Configuration
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
 
