@@ -3,6 +3,7 @@ package com.redway.recallm.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.redway.recallm.models.Memory;
+import com.redway.recallm.models.Memory.Role;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ class MemoryServiceTest {
   void testRememberAndRetreive() {
     var userId = UUID.randomUUID().toString();
     var sessionId = UUID.randomUUID().toString();
-    var item1 = new Memory(userId, sessionId, Memory.Role.USER, "Some content");
-    var item2 = new Memory(userId, sessionId, Memory.Role.USER, "Some other content");
+    var item1 = new Memory(userId, sessionId, Role.USER, "Some content");
+    var item2 = new Memory(userId, sessionId, Role.USER, "Some other content");
     memoryService.memorise(item1);
     memoryService.memorise(item2);
     var history = memoryService.recallSession(sessionId);
