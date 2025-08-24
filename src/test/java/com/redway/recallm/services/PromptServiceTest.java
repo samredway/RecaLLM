@@ -5,12 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.redway.recallm.models.Memory;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class PrompServiceTest {
-  @Autowired private PromptService promptService;
+  private final PromptService promptService = new PromptService();
 
   @Test
   public void testGeneratePromptFromShortTermMemory() {
