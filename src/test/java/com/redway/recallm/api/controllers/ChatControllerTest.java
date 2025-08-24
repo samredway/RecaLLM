@@ -1,11 +1,12 @@
-package com.redway.recallm.controllers;
+package com.redway.recallm.api.controllers;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.redway.recallm.services.ChatService;
-import com.redway.recallm.services.MemoryService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.redway.recallm.api.dtos.ChatRequest;
+import com.redway.recallm.services.ChatOrchestrator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,18 +18,22 @@ import org.springframework.test.web.servlet.MockMvc;
 class ChatControllerTest {
 
   @Autowired private MockMvc mockMvc;
+  @Autowired private ObjectMapper objectMapper;
 
-  @MockBean private ChatService chatService;
-  @MockBean private MemoryService memoryService;
+  @MockBean private ChatOrchestrator orchestrator;
 
   @Test
   void sendMessage_retunsString() throws Exception {
     // Given
-    when(chatService.chat(anyString())).thenReturn("Response"); // setup mock
+    var req = new ChatRequest("user1", "session1", "hello");
+    when(orchestrator.handleTurn(any(ChatRequest.class))).thenReturn("Response");
 
     // When/Then
     mockMvc
-        .perform(post("/chat").contentType(MediaType.TEXT_PLAIN).content("Hello"))
+        .perform(
+            post("/chat")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(req)))
         .andExpect(status().isOk());
   }
 }

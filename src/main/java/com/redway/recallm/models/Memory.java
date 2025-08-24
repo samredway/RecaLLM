@@ -16,7 +16,7 @@ public class Memory {
 
   public enum Role {
     USER,
-    ASSISTENT,
+    ASSISTANT,
   }
 
   @Id private String id;
