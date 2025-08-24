@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * <p>You can run: {@code docker compose up elasticsearch} from the project root.
  */
 @SpringBootTest
-class MemoryServiceTests {
+class MemoryServiceTest {
 
   @Autowired MemoryService memoryService;
 
