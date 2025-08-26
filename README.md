@@ -7,6 +7,19 @@ RecaLLM is a Java/Spring Boot application that augments large language models wi
 
 This project began as coursework for my postgraduate module in Software Development (M813, Open University), but I’m continuing it as a personal project because I see room to improve how chat systems manage memory and this is something that I would like to use myself!
 
+## Tech stack
+
+- Java 17  
+- Spring Boot  
+- Elasticsearch  
+- Docker / Docker Compose  
+- Maven
+
+## Architecture
+
+The app follows a standard layered Spring architecture (controllers, services, repositories).  
+It also applies the **strategy pattern** via a common `ChatService` interface injected at runtime, making it easy to swap different LLM providers (currently a GPT-4o implementation).
+
 ## Run the app
 
 To start the backend app:
