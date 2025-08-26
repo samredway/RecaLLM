@@ -13,13 +13,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ChatOrchestratorTest {
+class ChatOrchestratorServiceTest {
 
   @Mock MemoryService memoryService;
   @Mock ChatService chatService;
   @Mock PromptService promptService;
 
-  @InjectMocks ChatOrchestrator orchestrator;
+  @InjectMocks ChatOrchestratorService orchestrator;
 
   @Test
   void handleTurn_handlesRequest() {

@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redway.recallm.api.dtos.ChatRequest;
-import com.redway.recallm.services.ChatOrchestrator;
+import com.redway.recallm.services.ChatOrchestratorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +20,7 @@ class ChatControllerTest {
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper objectMapper;
 
-  @MockBean private ChatOrchestrator orchestrator;
+  @MockBean private ChatOrchestratorService orchestrator;
 
   @Test
   void sendMessage_retunsString() throws Exception {

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
-public class ChatOrchestrator {
+public class ChatOrchestratorService {
 
   private final MemoryService memoryService;
   private final PromptService promptService;
