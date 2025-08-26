@@ -22,7 +22,11 @@ It also applies the **strategy pattern** via a common `ChatService` interface in
 
 ## Run the app
 
-To start the backend app:
+Before you can run the app you will need to:
+- have a .env file with your OPENAI_API_KEY set in it - required to access the openai api.
+- make sure you elasticsearch instance is running and accessable on localhost:9200 (see below).
+
+If the above conditions are satisfied you can navigate to project root and run:
 
 ```bash
 ./mvnw spring-boot:run
