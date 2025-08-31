@@ -16,20 +16,9 @@ public class GptClient {
     Dotenv dotenv = Dotenv.load();
     String apiKey = dotenv.get("OPENAI_API_KEY");
     if (apiKey == null || apiKey.isEmpty()) {
-      throw new RuntimeException("OPENAI_API_KEY is not set in .env file");
+      throw new RuntimeException("OPENAI_API_KEY env var is not set");
     }
     client = OpenAIOkHttpClient.builder().apiKey(apiKey).build();
-  }
-
-  private String textFromResponse(Response response) {
-    return response.output().stream()
-        .findFirst()
-        .flatMap(item -> item.message()) // returns Optional<ResponseMessage>
-        .flatMap(
-            msg -> msg.content().stream().findFirst()) // stream → findFirst → Optional<Content>
-        .flatMap(content -> content.outputText()) // Optional<OutputText>
-        .map(outputText -> outputText.text()) // Optional<String>
-        .orElse("");
   }
 
   public String getResponseText(String message, ChatModel model) {
@@ -37,5 +26,15 @@ public class GptClient {
         ResponseCreateParams.builder().input(message).model(model).build();
     Response response = client.responses().create(params);
     return textFromResponse(response);
+  }
+
+  private String textFromResponse(Response response) {
+    return response.output().stream()
+        .findFirst()
+        .flatMap(item -> item.message()) // returns Optional<ResponseMessage>
+        .flatMap(msg -> msg.content().stream().findFirst()) // Optional<Content>
+        .flatMap(content -> content.outputText()) // Optional<OutputText>
+        .map(outputText -> outputText.text()) // Optional<String>
+        .orElse("");
   }
 }

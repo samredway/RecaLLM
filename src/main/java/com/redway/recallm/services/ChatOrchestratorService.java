@@ -20,7 +20,8 @@ public class ChatOrchestratorService {
     var newUserMemory =
         new Memory(request.userId(), request.sessionId(), Memory.Role.USER, request.message());
     memoryService.memorise(newUserMemory);
-    List<Memory> shortTermMemory = memoryService.recallSession(request.sessionId());
+    List<Memory> shortTermMemory =
+        memoryService.constructShortTermMemory(request.userId(), request.sessionId());
     String prompt = promptService.generatePromptFromShortTermMemory(shortTermMemory);
     String answer = chatService.chat(prompt);
     var newAssistantMemory =

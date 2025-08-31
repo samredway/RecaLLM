@@ -69,3 +69,4 @@ You’ll need to handle incrementing `sessionId`s yourself, but this lets you qu
 - The next feature is a first iteration of LTM, which will require experimentation and more testing.
 - I plan to add a simple front end (likely a React app) to make testing easier and to support personal use.
 
+For more granular detail you can see the Github issues which this project currently uses  as a loose ticket system.
