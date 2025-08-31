@@ -30,7 +30,7 @@ public class MemoryService {
   public List<Memory> constructShortTermMemory(String userId, String currentSessionId) {
     List<Memory> currentSessionHistory = recallSession(currentSessionId);
     if (!currentSessionHistory.isEmpty()) {
-      return currentSessionHistory;
+      return new ArrayList<>(currentSessionHistory);
     }
     /*
      * 1. Find the last session id by retrieving the last memory of the user.
