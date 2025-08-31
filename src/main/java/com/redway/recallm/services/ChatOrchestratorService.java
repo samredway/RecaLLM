@@ -19,9 +19,11 @@ public class ChatOrchestratorService {
   public String handleTurn(ChatRequest request) {
     var newUserMemory =
         new Memory(request.userId(), request.sessionId(), Memory.Role.USER, request.message());
-    memoryService.memorise(newUserMemory);
     List<Memory> shortTermMemory =
         memoryService.constructShortTermMemory(request.userId(), request.sessionId());
+    // Addning the memory after lets short term memory correctly add summary of last session
+    memoryService.memorise(newUserMemory);
+    shortTermMemory.add(newUserMemory);
     String prompt = promptService.generatePromptFromShortTermMemory(shortTermMemory);
     String answer = chatService.chat(prompt);
     var newAssistantMemory =

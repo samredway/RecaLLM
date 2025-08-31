@@ -49,9 +49,11 @@ class MemoryServiceTest {
     createSession();
     var history = memoryService.constructShortTermMemory(mockUserId, UUID.randomUUID().toString());
     assertEquals(1, history.size()); // should contain a summary of the mocked session
-    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + history.get(0).getContent());
   }
 
   @Test
-  void constructShortTermMemory_handlesEmptySessionNoPreviousSession() {}
+  void constructShortTermMemory_handlesEmptySessionNoPreviousSession() {
+    var history = memoryService.constructShortTermMemory(mockUserId, UUID.randomUUID().toString());
+    assertEquals(0, history.size());
+  }
 }

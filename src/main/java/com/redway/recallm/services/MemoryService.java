@@ -5,6 +5,7 @@ import com.redway.recallm.clients.GptClient;
 import com.redway.recallm.models.Memory;
 import com.redway.recallm.models.Memory.Role;
 import com.redway.recallm.repositories.MemoryItemDocumentRepository;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -45,10 +46,9 @@ public class MemoryService {
               Memory compressedSession =
                   compressSessionHistory(lastSessionHistory, currentSessionId, userId);
               memorise(compressedSession);
-              return compressedSession;
+              return new ArrayList<>(List.of(compressedSession));
             })
-        .map(List::of)
-        .orElseGet(List::of);
+        .orElseGet(ArrayList::new);
   }
 
   private List<Memory> recallSession(String sessionId) {
@@ -63,6 +63,7 @@ public class MemoryService {
       List<Memory> sessionHistory, String sessionId, String userId) {
     String prompt = promptService.generateSummaryPromptyFromHistory(sessionHistory);
     String summary = gptClient.getResponseText(prompt, MemoryService.SUMMARY_MODEL);
-    return new Memory(userId, sessionId, Role.SYSTEM, summary);
+    String content = "Here is a summary of our last session:\n\n" + summary;
+    return new Memory(userId, sessionId, Role.SYSTEM, content);
   }
 }
