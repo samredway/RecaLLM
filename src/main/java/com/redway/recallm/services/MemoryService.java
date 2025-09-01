@@ -4,7 +4,7 @@ import com.openai.models.ChatModel;
 import com.redway.recallm.clients.GptClient;
 import com.redway.recallm.models.Memory;
 import com.redway.recallm.models.Memory.Role;
-import com.redway.recallm.repositories.MemoryItemDocumentRepository;
+import com.redway.recallm.repositories.MemoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemoryService {
 
-  private final MemoryItemDocumentRepository repo;
+  private final MemoryRepository repo;
   private final GptClient gptClient;
   private final PromptService promptService;
 

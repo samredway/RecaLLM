@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MemoryItemDocumentRepository extends ElasticsearchRepository<Memory, String> {
+public interface MemoryRepository extends ElasticsearchRepository<Memory, String> {
 
   Page<Memory> findBySessionId(String sessionId, Pageable pageable);
 
