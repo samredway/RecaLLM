@@ -28,7 +28,7 @@ public class MemoryService {
   }
 
   public List<Memory> constructShortTermMemory(String userId, String currentSessionId) {
-    List<Memory> currentSessionHistory = recallSession(currentSessionId);
+    List<Memory> currentSessionHistory = recallSession(currentSessionId, userId);
     if (!currentSessionHistory.isEmpty()) {
       return new ArrayList<>(currentSessionHistory);
     }
@@ -42,7 +42,7 @@ public class MemoryService {
         .map(Memory::getSessionId)
         .map(
             id -> {
-              List<Memory> lastSessionHistory = recallSession(id);
+              List<Memory> lastSessionHistory = recallSession(id, userId);
               Memory compressedSession =
                   compressSessionHistory(lastSessionHistory, currentSessionId, userId);
               memorise(compressedSession);
@@ -51,11 +51,13 @@ public class MemoryService {
         .orElseGet(ArrayList::new);
   }
 
-  private List<Memory> recallSession(String sessionId) {
+  private List<Memory> recallSession(String sessionId, String userId) {
     var es_window_limit = 10_000;
     var page =
-        repo.findBySessionId(
-            sessionId, PageRequest.of(0, es_window_limit, Sort.by("createdAt").ascending()));
+        repo.findBySessionIdAndUserId(
+            sessionId,
+            userId,
+            PageRequest.of(0, es_window_limit, Sort.by("createdAt").ascending()));
     return page.getContent();
   }
 

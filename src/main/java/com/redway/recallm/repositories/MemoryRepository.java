@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemoryRepository extends ElasticsearchRepository<Memory, String> {
 
-  Page<Memory> findBySessionId(String sessionId, Pageable pageable);
+  Page<Memory> findBySessionIdAndUserId(String sessionId, String userId, Pageable pageable);
 
   Optional<Memory> findTopByUserIdOrderByCreatedAtDesc(String userId);
 }
