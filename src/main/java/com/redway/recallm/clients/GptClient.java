@@ -5,18 +5,16 @@ import com.openai.client.okhttp.OpenAIOkHttpClient;
 import com.openai.models.ChatModel;
 import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
-import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GptClient {
-  public final OpenAIClient client;
+  private final OpenAIClient client;
 
-  public GptClient() {
-    Dotenv dotenv = Dotenv.load();
-    String apiKey = dotenv.get("OPENAI_API_KEY");
+  public GptClient(@Value("${openai.api.key}") String apiKey) {
     if (apiKey == null || apiKey.isEmpty()) {
-      throw new RuntimeException("OPENAI_API_KEY env var is not set");
+      throw new IllegalStateException("Missing required property: openapi.api.key");
     }
     client = OpenAIOkHttpClient.builder().apiKey(apiKey).build();
   }
