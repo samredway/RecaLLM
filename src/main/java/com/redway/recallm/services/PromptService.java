@@ -22,7 +22,7 @@ public class PromptService {
     return joinHistory(shortTermMemory);
   }
 
-  public String generateSummaryPromptyFromHistory(List<Memory> history) {
+  public String generateSummaryPromptFromHistory(List<Memory> history) {
     String joined = joinHistory(history);
     return SUMMARY_PROMPT + joined;
   }
