@@ -68,7 +68,7 @@ public class MemoryService {
       List<Memory> sessionHistory, String sessionId, String userId) {
     String prompt = promptService.generateSummaryPromptFromHistory(sessionHistory);
     String summary = gptClient.getResponseText(prompt, MemoryService.SUMMARY_MODEL);
-    String content = "Here is a summary of our last session:\n\n" + summary;
+    String content = promptService.formatSessionSummary(summary);
     return new Memory(userId, sessionId, Role.SYSTEM, content);
   }
 }

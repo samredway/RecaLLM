@@ -14,16 +14,20 @@ public class GptClient {
 
   public GptClient(@Value("${openai.api.key}") String apiKey) {
     if (apiKey == null || apiKey.isEmpty()) {
-      throw new IllegalStateException("Missing required property: openapi.api.key");
+      throw new IllegalStateException("Missing required property: openai.api.key");
     }
     client = OpenAIOkHttpClient.builder().apiKey(apiKey).build();
   }
 
   public String getResponseText(String message, ChatModel model) {
-    ResponseCreateParams params =
-        ResponseCreateParams.builder().input(message).model(model).build();
-    Response response = client.responses().create(params);
-    return textFromResponse(response);
+    try {
+      ResponseCreateParams params =
+          ResponseCreateParams.builder().input(message).model(model).build();
+      Response response = client.responses().create(params);
+      return textFromResponse(response);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to get response from OpenAI API", e);
+    }
   }
 
   private String textFromResponse(Response response) {
