@@ -21,7 +21,7 @@ public class MemoryService {
   private final GptClient gptClient;
   private final PromptService promptService;
   
-  @Value("${recallm.memory.session-window-limit:10000}")
+  @Value("${recallm.memory.session-window-limit}")
   private int sessionWindowLimit;
 
   // Used to generate a summary of an entire session
