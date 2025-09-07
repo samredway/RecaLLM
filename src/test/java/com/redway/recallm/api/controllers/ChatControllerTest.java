@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redway.recallm.api.dtos.ChatRequest;
+import com.redway.recallm.api.dtos.ChatResponse;
 import com.redway.recallm.services.ChatOrchestratorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ class ChatControllerTest {
   @Test
   void sendMessage_retunsString() throws Exception {
     // Given
-    var req = new ChatRequest("user1", "session1", "hello");
-    when(orchestrator.handleTurn(any(ChatRequest.class))).thenReturn("Response");
+    var req = new ChatRequest("hello", "user1", "session1");
+    when(orchestrator.handleTurn(any(ChatRequest.class))).thenReturn(new ChatResponse("Response", "session1"));
 
     // When/Then
     mockMvc

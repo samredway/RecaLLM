@@ -17,6 +17,6 @@ public class ChatController {
 
   @PostMapping("/chat")
   public ChatResponse sendMessage(@Valid @RequestBody ChatRequest request) {
-    return new ChatResponse(chatOrchestrator.handleTurn(request));
+    return chatOrchestrator.handleTurn(request);
   }
 }
