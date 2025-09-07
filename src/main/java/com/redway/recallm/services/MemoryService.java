@@ -40,7 +40,7 @@ public class MemoryService {
      * 1. Find the last session id by retrieving the last memory of the user.
      * 2. Collect that session
      * 3. Compress the session using AI summarisation
-     * 4. Right the summary as a new memory at the start of this session
+     * 4. Write the summary as a new memory at the start of this session
      */
     return repo.findTopByUserIdOrderByCreatedAtDesc(userId)
         .map(Memory::getSessionId)

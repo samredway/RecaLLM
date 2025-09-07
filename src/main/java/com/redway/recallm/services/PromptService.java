@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class PromptService {
   /*
    * Used to summarise last session so as to pull it into short term memory
-   * currently allows 300 words to summarise. This may need to be tweaked and
+   * currently allows 500 words to summarise. This may need to be tweaked and
    * played with
    */
   public static final String SUMMARY_PROMPT =
