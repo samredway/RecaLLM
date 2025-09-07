@@ -8,6 +8,7 @@ import com.redway.recallm.repositories.MemoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class MemoryService {
   private final MemoryRepository repo;
   private final GptClient gptClient;
   private final PromptService promptService;
+  
+  @Value("${recallm.memory.session-window-limit:10000}")
+  private int sessionWindowLimit;
 
   // Used to generate a summary of an entire session
   public static final ChatModel SUMMARY_MODEL = ChatModel.GPT_4O;
@@ -52,12 +56,11 @@ public class MemoryService {
   }
 
   private List<Memory> recallSession(String sessionId, String userId) {
-    var es_window_limit = 10_000;
     var page =
         repo.findBySessionIdAndUserId(
             sessionId,
             userId,
-            PageRequest.of(0, es_window_limit, Sort.by("createdAt").ascending()));
+            PageRequest.of(0, sessionWindowLimit, Sort.by("createdAt").ascending()));
     return page.getContent();
   }
 
