@@ -51,18 +51,34 @@ To run the tests:
 
 The test strategy is layered: services and controllers are tested individually with dependencies mocked. There is no full integration test yet; the closest is the `MemoryService` test, which runs against a live Elasticsearch instance. For that test, you must have Elasticsearch running as shown above.
 
-## Test with curl
+## API Usage
 
-To fully integration-test you can curl from the terminal, for example:
+### Chat Endpoint
 
+The `/chat` endpoint handles all conversation logic and session management automatically. 
+
+**Request format:**
 ```bash
 curl localhost:8080/chat \
   -X POST \
   -H "Content-type: application/json" \
-  -d '{"message": "Hello this is a test message", "userId": "myusername", "sessionId": "session-01"}'
+  -d '{"message": "Hello this is a test message", "userId": "myusername", "sessionId": null}'
 ```
 
-You’ll need to handle incrementing `sessionId`s yourself, but this lets you quickly see how the memory behaves.
+**Session Management:**
+- **First message**: Send `sessionId: null` - the backend will generate a new session ID and return it in the response
+- **Subsequent messages**: Use the `sessionId` returned from the previous response
+- **Automatic session rotation**: When a session becomes too large (context limit reached), the backend automatically creates a new session and includes the previous session's summary for continuity
+
+**Response format:**
+```json
+{
+  "answer": "AI response text",
+  "sessionId": "generated-or-current-session-id"
+}
+```
+
+The client is not responsible for managing session limits or rotation - the backend handles this transparently to prevent context bloat while maintaining conversation continuity.
 
 ## Next steps
 
