@@ -5,9 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.redway.recallm.models.Memory;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
+@SpringBootTest
+@TestPropertySource(properties = {"recallm.memory.max-prompt-tokens=50000"})
 class PrompServiceTest {
-  private final PromptService promptService = new PromptService();
+  @Autowired private PromptService promptService;
 
   @Test
   public void testGeneratePromptFromShortTermMemory() {
